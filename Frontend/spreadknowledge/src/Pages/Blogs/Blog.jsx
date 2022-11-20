@@ -1,51 +1,41 @@
-import { Box, Center, Flex, Img, SimpleGrid, Text } from '@chakra-ui/react'
+import { Box, Button, Center, Flex, Img, SimpleGrid, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { getAllBlogs } from '../../api'
-import CategoryTable from './CategoryTable'
 import {Link} from "react-router-dom";
+import { useContext } from 'react'
+import { AuthContext } from '../../Context/AuthContext'
 const Blog = () => {
   const [blog,setBlog]=useState([]);
+  const {isAuth}=useContext(AuthContext);
   const getBlog=async ()=>{
       let res= await getAllBlogs();
       setBlog(res.data.message);
-      console.log(res.data.message);
   }
   useEffect(()=>{
     getBlog();
   },[])
   return (
-    <Box m='20px' >
-      <Flex>
-      <CategoryTable />
-      <Box width='50%' m='auto' >
-        {/* <Center> */}
-
-        {/* <SimpleGrid columns={1}> */}
+    <Box m='20px auto' w='90%' >
+        <SimpleGrid columns={[1,2,3]} gap='30px'>
         {
           blog.map(b=>
-            <Link key={b._id} to={`/blog/${b._id}`}>
-            <Box m='20px 0'  p='20px' bg='white' borderRadius='10px'>
+            
+            <Box key={b._id} m='20px 0'  p='20px' bg='white' h='500px' position='relative'>
+                {
+                  b.author.name===isAuth.data.name?<Link to={`/blog/edit/${b._id}`}><Img h='30px' p='2px'  bg='blackAlpha.300' position='absolute' top='20px' right='20px' src="https://img.icons8.com/glyph-neue/64/null/edit--v1.png"/></Link>:null
+                }
               <Center>
-              <Img src={b.image} alt='' h='200px'/>
+              <Img src={b.image}  h='300px' w='100%' objectFit='contain'/>
               </Center>
-              <Text align='left'><b>{b.title}</b></Text>
-              <Flex justify='space-between'>
-              {
-                b.author && 
-              <Text>Author-<b>{b.author.name?b.author.name:"None"}</b></Text>
-            }
-              <Text fontSize='12px'>{b.iat}</Text>
-              </Flex>
+              <Text m='10px 0' fontSize='20px' align='left' >{b.title}</Text>
+              <Text m='10px 0' fontSize='20px' align='left' >{b.content.slice(0,100)}<Link key={b._id} to={`/blog/${b._id}`}><Text color='blue'>Read more</Text></Link></Text>
             </Box>
-            </Link>
+            
             )
           }
-          {/* </SimpleGrid> */}
-              {/* </Center> */}
-      </Box>
-      </Flex>
+      </SimpleGrid>
     </Box>
   )
 }

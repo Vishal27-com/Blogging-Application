@@ -1,11 +1,12 @@
 const express = require("express");
-const { addBlog, getBlog, getBlogById } = require("../Controller/blog.controller");
+const { addBlog, getBlog, getBlogById, updateBlog, deleteBlog } = require("../Controller/blog.controller");
 const app = express.Router();
 let error_message=(e)=>({ message: e.message, error: true });
-app.post("/post",  (req, res) => {
+app.post("/post", async  (req, res) => {
   try {
     let token = req.headers["authorization"];
-    let response=addBlog(token);
+    let data=req.body;
+    let response=await addBlog(token,data);
     res.status(200).send(response);
   } catch (e) {
     res.status(500).send(error_message(e));
@@ -13,7 +14,7 @@ app.post("/post",  (req, res) => {
 });
 app.get("/", async (req, res) => {
   try {
-    let response=getBlog();
+    let response=await getBlog();
     res.status(200).send(response);
   } catch (e) {
     res.status(500).send(error_message(e));
@@ -22,19 +23,30 @@ app.get("/", async (req, res) => {
 app.get("/:id", async (req, res) => {
   try {
     let { id } = req.params;
-    let response=getBlogById(id);
+    let response=await getBlogById(id);
     res.status(200).send(response);
-  } catch (error) {
+  } catch (e) {
+    res.status(500).send(error_message(e));
+  }
+});
+app.delete("/:id", async (req, res) => {
+  try {
+    let { id } = req.params;
+    let response=await deleteBlog(id);
+    res.status(200).send(response);
+  } catch (e) {
     res.status(500).send(error_message(e));
   }
 });
 
-// app.delete("/:id", async (req, res) => {
-//   try {
-//     await Blog.findByIdAndRemove(req.params);
-//     res.send({ message: "Deleted", error: false });
-//   } catch (error) {
-//     res.status(500).send(error_message(e));
-//   }
-// });
+app.patch("/:id", async (req, res) => {
+  try {
+    let {id}=req.params;
+    let data=req.body;
+    let response=await updateBlog(id,data)
+    res.status(200).send(response);
+  } catch (e) {
+    res.status(500).send(error_message(e));
+  }
+});
 module.exports = app;

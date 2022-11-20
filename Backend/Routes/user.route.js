@@ -1,14 +1,18 @@
 const express = require("express");
 const User = require("../Model/user.schema");
 const app = express.Router();
-const { createUser, loginUser, refreshToken, getUser } = require("../Controller/user.controller");
+const {
+  createUser,
+  loginUser,
+  refreshToken,
+  getUser,
+} = require("../Controller/user.controller");
 
-let error_message=(e)=>({ message: e.message, error: true });
-
+let error_message = (e) => ({ message: e.message, error: true });
 // To signup user
-app.post("/signup",(req, res) => {
+app.post("/signup", async (req, res) => {
   try {
-    let response=createUser(req.body);
+    let response = await createUser(req.body);
     res.status(200).send(response);
   } catch (e) {
     res.status(500).send(error_message(e));
@@ -24,7 +28,7 @@ app.post("/login", async (req, res) => {
         .status(401)
         .send({ message: "Invalid Credentials", error: true });
     }
-    const response=loginUser(user);
+    const response = await loginUser(user);
     res.send(response);
   } catch (e) {
     res.status(500).send(error_message(e));
@@ -32,10 +36,10 @@ app.post("/login", async (req, res) => {
 });
 
 // To refresh the token
-app.post("/refresh", (req, res) => {
+app.post("/refresh", async (req, res) => {
   try {
     let { refreshToken_for_newToken } = req.body;
-    let response=refreshToken(refreshToken_for_newToken)
+    let response = await refreshToken(refreshToken_for_newToken);
     res.status(200).send(response);
   } catch (e) {
     res.status(500).send(error_message(e));
@@ -45,7 +49,7 @@ app.post("/refresh", (req, res) => {
 app.get("/user", async (req, res) => {
   try {
     let token = req.headers["authorization"];
-    let response=getUser(token);
+    let response = await getUser(token);
     res.status(200).send(response);
   } catch (e) {
     res.status(500).send(error_message(e));

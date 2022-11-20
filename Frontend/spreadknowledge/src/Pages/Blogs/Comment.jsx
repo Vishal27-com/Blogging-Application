@@ -1,14 +1,27 @@
-import { Box, Text } from '@chakra-ui/react'
-import React from 'react'
+import { Avatar, Box, Flex, Img, Text } from '@chakra-ui/react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../../Context/AuthContext'
 
-const Comment = ({author,comment}) => {
+const Comment = ({author,comment,deleteComment}) => {
+  const {isAuth}=useContext(AuthContext);
+  console.log(isAuth);
   return (
     
-    <Box border='1px solid black' p='10px' bg='white' m='5px 0' borderRadius='10px'>
+    <Box  p='10px' bg='white' m='5px 0' >
     <Box>
-    <Text align='left'><b>
+      <Flex justify='space-between'>
+
+      <Flex align='center' gap='5px'>
+    <Avatar size='sm' name={author} />  
+    <Text fontSize='18px' align='left'><b>
       {author}
     </b></Text>   
+      </Flex>
+      {
+        isAuth.data?.name===author && <Box onClick={deleteComment}><Img h='30px' src="https://img.icons8.com/parakeet/48/null/trash.png"/></Box>
+      }
+      
+      </Flex>
     <Text align='left'>
       {comment}
       </Text>

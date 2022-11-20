@@ -11,7 +11,7 @@ async function createUser(data) {
 async function loginUser(user){
   
     const token = jwt.sign(user.toJSON(), process.env.SECRET_KEY, {
-      expiresIn: "5 minutes",
+      expiresIn: "1 day",
     });
     const refreshToken = jwt.sign(
       user.toJSON(),
@@ -37,7 +37,7 @@ async function refreshToken(refToken){
     password: data.password,
   };
   const new_Token = jwt.sign(user_data, process.env.SECRET_KEY, {
-    expiresIn: "5 minutes",
+    expiresIn: "1 day",
   });
   return  {
     message: user_data,

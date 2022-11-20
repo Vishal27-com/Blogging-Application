@@ -6,7 +6,7 @@ export const AuthContext=createContext();
 
 export function AuthContextProvider({children}){
     const [isAuth,setIsAuth]=useState({
-        status:false,
+        status:window.localStorage.getItem("access_token")?true:false,
         data:{}
     });
     const authHandler=(status,data)=>{
@@ -15,13 +15,14 @@ export function AuthContextProvider({children}){
             data:data
         });
     }
-    const getData=async ()=>{
-        let res=await getUser();
-        setIsAuth({
-            status:window.localStorage.getItem("access_token")!==null?true:false,
-            data: res.data.message,
-        });
-    }
+    const getData=()=>{
+        getUser().then(res=>{
+            setIsAuth({
+            status:window.localStorage.getItem("access_token")?true:false,
+            data:res.data.message,
+        })
+        }); 
+}
     useEffect(()=>{
         getData();
     },[])

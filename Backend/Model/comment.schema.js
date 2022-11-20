@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Blog = require("../BlogPost/blog.model");
+const Blog = require("../Model/blog.schema");
 const User = require("./user.schema");
 const commentSchema = new mongoose.Schema({
   comment: { type: String, required: true },

@@ -23,15 +23,14 @@ const io = new Server(server, {
   },
 });
 io.on("connection", (socket) => {
-  console.log("new user connected" + socket.id);
   socket.on("sent_by_client", (data) => {
     io.emit("sent_by_server", data);
   });
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
+  socket.on("disconnect",()=>{
+    console.log("disconnected")
   });
 });
 server.listen(PORT, () => {
-  console.log("server started on port 8000");
+  console.log("Server started on port 8000");
 });
 

@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-font-family: 'Montserrat', sans-serif;
-font-family: 'Poppins', sans-serif;
-background-color:rgb(206, 158, 228)
+  background: #a5fabc;
+  /* background-color: rgb(23, 104, 236); */
 }

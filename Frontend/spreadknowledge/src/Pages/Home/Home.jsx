@@ -1,17 +1,15 @@
+import { Box,Button,Flex, Img, Text } from '@chakra-ui/react'
 import React from 'react'
-import { useEffect } from 'react'
-import { github_profile } from '../../api'
-
+import {Link} from "react-router-dom"
+import Descriptive from './Descriptive'
+import Welcome from './Welcome'
 const Home = () => {
-    // const get_github_profile=async ()=>{
-    //     let res=await github_profile();
-    //     console.log(res);
-    // }
-    // useEffect( ()=>{
-    //     get_github_profile();
-    // },[])
+
   return (
-    <div>Home</div>
+    <Box fontFamily='Poppins'>
+     <Welcome />
+     <Descriptive />
+    </Box>
   )
 }
 

@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react'
 import {ViewIcon, ViewOffIcon} from '@chakra-ui/icons';
 import AuthImage from "../../resources/AuthImage.jpg"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signup } from '../../api';
 import ExternalLogin from './ExternalLogin';
 const init={
@@ -13,6 +13,7 @@ const init={
 }
 const Signup = () => {
   const [formData,setFormData]=useState(init);
+  const navigate=useNavigate();
   const changeHandler=(e)=>{
    const {name,value}=e.target;
    setFormData({
@@ -20,23 +21,27 @@ const Signup = () => {
    })
   }
   const submitHandler=async()=>{
-    console.log(formData);
     let res=await signup(formData);
-    console.log(res);
-   
+    if(!res.data.error){
+      alert("Signup Successfull")
+      navigate("/login");
+    }  
+    else {
+      alert(res.data.message);
+    } 
   }  
 const [showPass,setShowPass]=useState(false);
   return (
     <Box >
-    <Flex justify='center' align='center' h='98vh'>
+    <Flex justify='center' align='center' h='90vh'>
     <Box  boxShadow='lg' borderRadius='10px' p='10px' bg='white'>
     <Box>
     <Flex>
-   <Img h='400px' src={AuthImage} alt='Auth image' /> 
-   <Box  w='300px'pt='30px'>
+   <Img h='400px' src={AuthImage} alt='Auth image' display={["none","none","block"]} /> 
+   <Box  w={["250px","300px","300px"]} pt='30px'>
     <Text pb='20px' fontSize='20px' fontWeight='bold'>Spread Knowledge</Text>
     <form>
-        <Stack spacing={2}>
+        <Stack spacing={3}>
         <Input type='text' placeholder="Enter Your Name" onChange={changeHandler} name='name' />
         <Input type='email' placeholder="Enter Email" onChange={changeHandler} name='email'  />
         <InputGroup>
@@ -50,9 +55,6 @@ const [showPass,setShowPass]=useState(false);
         <Center>
         <Button variant='solid' colorScheme='teal'onClick={submitHandler}>Signup</Button>    
         </Center> 
-        <Text fontWeight='600' fontSize='14px' color='grey'>or</Text>
-        <Text fontWeight='600' fontSize='14px' color='grey'>Continue With</Text>
-        <ExternalLogin />
         <Text fontWeight='600' fontSize='14px' color='grey' >Already have an account?<Link to='/login'>Login</Link></Text>
         </Stack>
     </form>

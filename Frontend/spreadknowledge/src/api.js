@@ -62,6 +62,7 @@ export function signup(data){
 export function login(data){
     return instance.post(`/login`,data)
 }
+
 export function getUser(){
     return instance.get(`/user`)
 }
@@ -72,6 +73,12 @@ export function uploadFile(data){
 }
 export function BlogPost(data){
     return instance.post("/blog/post",data)
+}
+export function BlogUpdate(id,data){
+    return instance.patch(`/blog/${id}`,data)
+}
+export function BlogDelete(id){
+    return instance.delete(`/blog/${id}`)
 }
 export function getAllBlogs(){
     return instance.get("/blog");
@@ -84,6 +91,9 @@ export function commentPost(data){
 }
 export function getComment(id){
     return instance.get("/comment/"+id);
+}
+export function deleteComment(id){
+    return instance.delete("/comment/"+id);
 }
 // export function login_with_google(){
 //     return axios.get(`http://localhost:8000/auth/google`);
