@@ -8,7 +8,7 @@ import Comment from './Comment'
 import CommentBox from './CommentBox'
 import { commentPost } from '../../api'
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:8000")
+const socket = io.connect("https://spreadknowledge.onrender.com/")
 const initComment={
    comment:"",
    blog:"",

@@ -8,7 +8,7 @@ function getRefreshToken(){
     return refreshToken;
 }
 const instance=axios.create({
-    baseURL:"http://localhost:8000/",
+    baseURL:"https://spreadknowledge.onrender.com/",
     headers:{
         "Content-Type": "application/json",
       },
