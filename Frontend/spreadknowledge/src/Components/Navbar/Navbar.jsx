@@ -23,7 +23,7 @@ const Navbar = () => {
       {/* left */}
       <Flex justify='space-around' align='center'>
       <Box>
-      <Link to='/'><Text fontSize='18px' fontWeight='bold'>Spread Knowledge</Text></Link>
+      <Link to='/blogs'><Text fontSize='18px' fontWeight='bold'>Spread Knowledge</Text></Link>
       </Box>
       {/* Right */}
       <Box>

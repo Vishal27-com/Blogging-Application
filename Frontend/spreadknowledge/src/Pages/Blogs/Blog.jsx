@@ -22,7 +22,7 @@ const Blog = () => {
         {
           blog.map(b=>
             
-            <Box key={b._id} m='20px 0'  p='20px' bg='white' h='500px' position='relative'>
+            <Box key={b._id} m='20px 0'  p='20px' bg='white'  position='relative'>
                 {
                   b.author.name===isAuth.data.name?<Link to={`/blog/edit/${b._id}`}><Img h='30px' p='2px'  bg='blackAlpha.300' position='absolute' top='20px' right='20px' src="https://img.icons8.com/glyph-neue/64/null/edit--v1.png"/></Link>:null
                 }

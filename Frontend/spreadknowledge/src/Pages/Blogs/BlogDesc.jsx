@@ -47,10 +47,11 @@ const BlogDesc = () => {
     const AllComments=async ()=>{
       let res=await getComment(params.id);
       socket.emit("sent_by_client",res.data.message);
-    }
-        socket.on("sent_by_server",(data)=>{
-         setCommentData(data);
-        })
+         setCommentData(res.data.message);
+         socket.on("sent_by_server",(data)=>{
+              setCommentData(data);
+          })
+  }
     
     // To delete the comment by commentor from backend    
     const deleteOneComment=async (id)=>{

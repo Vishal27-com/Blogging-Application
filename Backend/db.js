@@ -6,7 +6,7 @@ try {
         useNewUrlParser:true,
         useUnifiedTopology:true,
     }
-    await mongoose.connect(process.env.DATABASE,connectionParams)
+    await mongoose.connect("mongodb+srv://Vishal:0@cluster0.y08avne.mongodb.net/spreadknowledge",connectionParams)
     console.log("Connected to Database")
 } catch (error) {
     console.log(error.message);

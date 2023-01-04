@@ -1,4 +1,5 @@
 .App {
+  min-height: 100vh;
   text-align: center;
   background: #a5fabc;
   /* background-color: rgb(23, 104, 236); */

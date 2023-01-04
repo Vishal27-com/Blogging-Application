@@ -1,9 +1,8 @@
 import { Box, Input,Button, Img, Flex, Stack, Center } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import styles from "../Create Blog/CreateBlog.module.css";
-import {AddIcon} from "@chakra-ui/icons"
 import { useEffect } from 'react';
-import { BlogDelete, BlogPost, BlogUpdate, getBlogById, uploadFile } from '../../api';
+import { BlogDelete,  BlogUpdate, getBlogById } from '../../api';
 import { categories } from '../../Components/Categories/categories';
 import { useNavigate, useParams } from 'react-router-dom';
 const initData={
@@ -19,16 +18,7 @@ const BlogEdit = () => {
     const params=useParams();
     const [toggel,setToggel]=useState(true);
     const [post,setPost]=useState(initData);
-    const [file,setFile]=useState("");
-    const getImage=async ()=>{
-      if(file){
-        const data=new FormData();
-        data.append("name",file.name);
-        data.append("file",file);
-        const res= await uploadFile(data);
-        post.image=res.data.message;
-      }
-    }
+ 
     const changeHandler=(e)=>{
       const {name,value}=e.target;
       setPost({...post,[name]:value});
@@ -50,9 +40,6 @@ const BlogEdit = () => {
         navigate("/blogs");
       }
     }
-    useEffect(()=>{
-     getImage();
-    },[file])
 
     const getData=async ()=>{
         let res=await getBlogById(params.id);
@@ -64,17 +51,14 @@ const BlogEdit = () => {
   return (
     <Box w='60%' p='10px' m='10px auto'  borderRadius='10px' bg='white'>
     <form>
-      <Box m='20px auto' h='200px' position='relative' >
-        <Center>
-       <Img src={post.image} alt='upload Image'  h='200px' objectFit="cover" borderRadius='10px'  />
-        </Center>
-       <Box  position='absolute' bottom='5px' right='10px' bg='teal' p='5px 10px' borderRadius='100%'>
-       <label htmlFor='fileInput'>
-        <AddIcon />
-       </label> 
-       <input id='fileInput' className={styles.fileInput} type='file' onChange={(e)=>setFile(e.target.files[0])} />
-       </Box>
-      </Box>
+    <Stack>
+<Center >
+{
+  post.image &&
+  < Img src={post.image} alt='upload Image' />
+}
+</Center>
+<Input type='url' name='image' value={post.image} placeholder='Post Image Url' onChange={changeHandler}  />
       <Stack direction='row' spacing={5}>
 
       {
@@ -100,6 +84,7 @@ const BlogEdit = () => {
       <Button variant='solid' colorScheme='teal' onClick={updateHandler}>Update</Button>
       <Button variant='solid' colorScheme='red' onClick={deleteHandler}>Delete</Button>
       </Flex>
+    </Stack>
     </form>
     </Box>
   )

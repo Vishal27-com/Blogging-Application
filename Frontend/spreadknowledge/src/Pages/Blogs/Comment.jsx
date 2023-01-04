@@ -18,7 +18,7 @@ const Comment = ({author,comment,deleteComment}) => {
     </b></Text>   
       </Flex>
       {
-        isAuth.data?.name===author && <Box onClick={deleteComment}><Img h='30px' src="https://img.icons8.com/parakeet/48/null/trash.png"/></Box>
+        isAuth.data?.name===author && <Box _hover={{cursor:"pointer"}} onClick={deleteComment}><Img h='30px' src="https://img.icons8.com/parakeet/48/null/trash.png"/></Box>
       }
       
       </Flex>

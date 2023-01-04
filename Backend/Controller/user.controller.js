@@ -47,7 +47,7 @@ async function refreshToken(refToken){
   }
 }
 async function getUser(token){
-  let data = jwt.verify(token, process.env.SECRET_KEY);
+  let data = jwt.verify(token,process.env.SECRET_KEY);
   let user = await User.findById(data._id);
   return { message: user, error: false }
 }
