@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, Img, SimpleGrid, Text } from '@chakra-ui/react'
+import { Box, Center, Avatar, Img, SimpleGrid, Text, Flex } from '@chakra-ui/react'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -26,6 +26,11 @@ const Blog = () => {
                 {
                   b.author.name===isAuth.data.name?<Link to={`/blog/edit/${b._id}`}><Img h='30px' p='2px'  bg='blackAlpha.300' position='absolute' top='20px' right='20px' src="https://img.icons8.com/glyph-neue/64/null/edit--v1.png"/></Link>:null
                 }
+              <Flex gap='20px' align='center'>
+              <Avatar h='35px' w='35px' name={b.author.name} />  
+              <Text fontWeight='600'>{b.author.name===isAuth.data.name?"You":b.author.name}</Text>
+              <Text fontWeight='600'>{b.iat}</Text> 
+              </Flex>  
               <Center>
               <Img src={b.image}  h='300px' w='100%' objectFit='contain'/>
               </Center>

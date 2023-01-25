@@ -39,8 +39,8 @@ const [showPass,setShowPass]=useState(false);
     <Box  boxShadow='lg' borderRadius='10px' p='10px' bg='#fff'>
     <Box>
     <Flex>
-    <Img h='400px' src={AuthImage} alt='Auth image' /> 
-    <Box  w='300px'pt='30px'>
+    <Img h='400px' src={AuthImage} alt='Auth image' display={["none","none","block"]} /> 
+    <Box  w={["250px","300px","300px"]} pt='30px'>
     <Text pb='20px' fontSize='20px' fontWeight='bold'>Spread Knowledge</Text>
     <form>
         <Stack spacing={3}>

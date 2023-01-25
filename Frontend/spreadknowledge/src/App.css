@@ -1,6 +1,10 @@
+:root{
+  --mainbgcolor:#5f27cd;
+}
+
 .App {
   min-height: 100vh;
   text-align: center;
-  background: #a5fabc;
+  background: var(--mainbgcolor)
   /* background-color: rgb(23, 104, 236); */
 }

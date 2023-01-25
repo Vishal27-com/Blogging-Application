@@ -7,14 +7,13 @@ import Blog from '../Pages/Blogs/Blog'
 import BlogDesc from '../Pages/Blogs/BlogDesc'
 import BlogEdit from '../Pages/Blogs/BlogEdit'
 import CreateBlog from '../Pages/Create Blog/CreateBlog'
-import Home from '../Pages/Home/Home'
 import Profile from '../Pages/Profile/Profile'
 import PrivateRoute from './PrivateRoute'
 
 const AllRoutes = () => {
   return (
     <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Login />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/blogs' element={<PrivateRoute><Navbar /><Blog/></PrivateRoute>} />

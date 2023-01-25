@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Avatar,
   Box,
@@ -13,8 +13,7 @@ import {
   HStack,
   SimpleGrid,
   Text,
-  useDisclosure,
-  VStack,
+  useDisclosure
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -23,15 +22,6 @@ const MobileNav = () => {
   const { isAuth, authHandler } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-  const [navbg, setNavbg] = useState(false);
-  const navbarBg = () => {
-    if (window.scrollY >= 100) {
-      setNavbg(true);
-    } else {
-      setNavbg(false);
-    }
-  };
-
   const navigate = useNavigate();
   const logoutHandler = () => {
     authHandler("false", {});
@@ -39,13 +29,12 @@ const MobileNav = () => {
     window.localStorage.removeItem("refresh_token");
     navigate("/login");
   };
-  window.addEventListener("scroll", navbarBg);
   return (
     <Box display={["block", "block", "none"]}>
       {/* left */}
       <Flex justify="space-between" align="center">
         <Box>
-          <Link to="/">
+          <Link to="/blogs">
             <Text fontSize="18px" fontWeight="bold">
               Spread Knowledge
             </Text>
@@ -90,35 +79,35 @@ const MobileNav = () => {
             <SimpleGrid columns={[1, 2]} spacing={5}>
               <Button
                 variant="solid"
-                bg={navbg ? "#60fc8a" : "#a5fabc"}
+                bg={"var(--mainbgcolor)"}
                 _hover={{ bg: "teal", color: "white" }}
               >
                 <Link to="/blogs">Blogs</Link>
               </Button>
               <Button
                 variant="solid"
-                bg={navbg ? "#60fc8a" : "#a5fabc"}
+                bg={"var(--mainbgcolor)"}
                 _hover={{ bg: "teal", color: "white" }}
               >
                 <Link to="/create-blog">Create Blog</Link>
               </Button>
               <Button
                 variant="solid"
-                bg={navbg ? "#60fc8a" : "#a5fabc"}
+                bg={"var(--mainbgcolor)"}
                 _hover={{ bg: "teal", color: "white" }}
               >
                 <Link to="/signup">Signup</Link>
               </Button>
               <Button
                 variant="solid"
-                bg={navbg ? "#60fc8a" : "#a5fabc"}
+                bg={"var(--mainbgcolor)"}
                 _hover={{ bg: "teal", color: "white" }}
               >
                 <Link to="/profile">Profile</Link>
               </Button>
               <Button
                 variant="solid"
-                bg={navbg ? "#60fc8a" : "#a5fabc"}
+                bg={"var(--mainbgcolor)"}
                 _hover={{ bg: "teal", color: "white" }}
                 onClick={logoutHandler}
               >
